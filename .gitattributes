@@ -1,0 +1,9 @@
+# 统一按 LF 存储：项目目标是 Linux，脚本在 WSL 里执行，
+# 一旦被 Windows 的 autocrlf 转成 CRLF，bash 会报 "bad interpreter"。
+* text=auto eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+
+*.png binary
+*.docx binary
+*.jpg binary

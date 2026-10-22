@@ -1,0 +1,5 @@
+build/
+tools/__pycache__/
+*.o
+*.a
+*.log

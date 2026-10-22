@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: gcc / release / ctest
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -j"$(nproc)"
+
+      - name: Unit tests
+        run: ctest --test-dir build --output-on-failure
+
+      # 端到端冒烟：真的起服务器、真的压 5 秒，避免“编译过但跑不起来”
+      - name: Smoke test
+        run: |
+          set -e
+          ulimit -n 65535 || true
+          ./build/echo_server 19080 2 > /tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          sleep 1
+          ./build/bench_client 127.0.0.1 19080 2 4 5 64
+          kill $SERVER_PID
+
+      - name: Server log
+        if: always()
+        run: tail -n 20 /tmp/server.log || true
