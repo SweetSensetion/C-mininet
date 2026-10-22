@@ -3,9 +3,8 @@
 一个从零实现的 Linux 网络库：epoll + 非阻塞 IO + one loop per thread + 有界线程池 + 长度前缀二进制协议。
 不依赖任何第三方网络框架，只用 glibc、pthread 与 C++11 标准库。
 
-[![ci](https://github.com/YOUR_NAME/YOUR_REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_NAME/YOUR_REPO/actions/workflows/ci.yml)
+[![ci](https://github.com/SweetSensetion/C-mininet/actions/workflows/ci.yml/badge.svg)](https://github.com/SweetSensetion/C-mininet/actions/workflows/ci.yml)
 
-> 首次推送到 GitHub 后，把上面 badge 里的 `YOUR_NAME/YOUR_REPO` 换成实际仓库路径即可。
 > CI 会做三件事：Release 构建、跑 `codec_test`、起真实服务器压 5 秒。
 
 ## 特性
